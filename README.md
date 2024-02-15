@@ -17,7 +17,7 @@ Zorpheus is a command-line tool developed in Python for performing login tests o
 
 ## How to Install
 1. Download the [zorpheus.py](https://raw.githubusercontent.com/simplyYan/Zorpheus/main/zorpheus.py) file.
-2. Move the file to the root of the system (on Linux, use `~`, on macOS and Windows, refer to the appropriate documentation).
+2. Move the file to the root of the system (on Linux, use `~`, on macOS and Windows, refer to the appropriate documentation) {OPTIONAL, BUT CAN MAKE IT EASIER TO USE}
 3. Run the file using Python:
 
 ```bash
