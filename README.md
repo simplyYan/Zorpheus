@@ -52,6 +52,13 @@ The `wordlistgen` command is used to generate a wordlist file in JSON format.
 python3 zorpheus.py wordlistgen usernames.txt passwords.txt > wordlist.json
 ```
 
+## Get one of the world's largest general wordlists
+You can use Worpheus, which is one of the largest wordlists in the world. It comes in .TXT by default (you can convert it to the JSON format accepted by Zorpheus using wordlistgen, just duplicate it, and merge it using wordlistgen). Worpheus has over 130,000 words and combinations for real names, usernames, passwords, server files, passwords and default names for various tools, extra words for the additional password, city names, country names, street names.
+Worpheus uses only real information, taken from real platforms and the world. The wordlist is 160MB long, and one big detail: there's an 85% chance that your target's credentials (regardless of the target) are in Worpheus. It's 100% free and open-source. Download it using Google Drive or Mediafire:
+1. Google Drive: https://drive.google.com/file/d/1btvUoClrL3TFreDtT51P45DK2O4jSbWG/view?usp=sharing
+2. Mediafire: https://www.mediafire.com/file/1vn7x9sa79vw62u/Worpheus.txt/file
+- **Note**: This wordlist is compatible with any tool, be it Zorpheus, Hydra or Medusa, but due to its size, it can take up to 20% longer to get the results. It can easily be used in Zorpheus with wordlistgen, a native and exclusive command.
+
 ## License
 Zorpheus is distributed under the [BSD-3-Clause License](LICENSE).
 
