@@ -24,6 +24,34 @@ Zorpheus is a command-line tool developed in Python for performing login tests o
 python3 zorpheus.py
 ```
 
+## Usage
+
+### Command: `knock`
+The `knock` command is used to perform login tests on web pages.
+
+#### Arguments:
+- `URL`: The URL of the login page.
+- `Username`: (Optional) The name of the username field in the login form.
+- `Password`: (Optional) The name of the password field in the login form.
+- `Wordlist`: The path to the wordlist file containing usernames and passwords.
+- `SuccessCriteria`: (Optional) A dictionary containing custom success criteria.
+
+#### Example:
+```bash
+python3 zorpheus.py knock '{"URL": "http://example.com/login", "Username": "username", "Password": "password", "Wordlist": "wordlist.json", "SuccessCriteria": {"StatusCode": 200, "Keyword": "Welcome"}}'
+```
+
+### Command: `wordlistgen`
+The `wordlistgen` command is used to generate a wordlist file in JSON format.
+
+#### Arguments:
+- List of file paths: Paths to text files containing usernames and passwords.
+
+#### Example:
+```bash
+python3 zorpheus.py wordlistgen usernames.txt passwords.txt > wordlist.json
+```
+
 ## License
 Zorpheus is distributed under the [BSD-3-Clause License](LICENSE).
 
