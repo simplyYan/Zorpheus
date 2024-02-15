@@ -9,6 +9,7 @@ Zorpheus is a command-line tool developed in Python for performing login tests o
 - **Lightweight:** With few dependencies and a minimalist design, Zorpheus is light on resources and easy to install.
 - **Highly Customizable:** Users can define their own success criteria to adapt to different testing environments.
 - **Open-source:** Zorpheus is distributed under the BSD-3-Clause license, allowing users to modify and distribute the code as needed.
+- **Supports both HTTP and HTTPS:** Zorpheus supports HTTP (including HTTPS), and I'm working on adding support for FTP and SSH.
 
 ## Requirements
 - Python 3.x (I only tested with version 3.8.12)
