@@ -11,7 +11,7 @@ Zorpheus is a command-line tool developed in Python for performing login tests o
 - **Open-source:** Zorpheus is distributed under the BSD-3-Clause license, allowing users to modify and distribute the code as needed.
 
 ## Requirements
-- Python 3.x
+- Python 3.x (I only tested with version 3.8.12)
 - Compatible with Windows, Linux, and macOS
 - No extra libraries required
 
