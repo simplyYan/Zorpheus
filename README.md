@@ -41,6 +41,17 @@ The `knock` command is used to perform login tests on web pages.
 ```bash
 python3 zorpheus.py knock '{"URL": "http://example.com/login", "Username": "username", "Password": "password", "Wordlist": "wordlist.json", "SuccessCriteria": {"StatusCode": 200, "Keyword": "Welcome"}}'
 ```
+#### Example 2:
+```
+python3 zorpheus.py knock '{"URL": "http://example.com/login", "Username": "username", "Password": "password", "Wordlist": "wordlist.json", "SuccessCriteria": {"StatusCode": 200, "Keyword": "Welcome"}, "RedirectURL": "http://example.com/dashboard"}'
+```
+- _**In this example**_:
+- URL: The URL of the login page.
+- Username: The username to be tested (can be omitted if not required).
+- Password: The password to be tested (can be omitted if not required).
+- Wordlist: The path to the wordlist file.
+- SuccessCriteria: The default success criteria, including checking the status of code 200 and whether the word "Welcome" is present on the page.
+- RedirectURL: The URL to which we expect to be redirected after successful login.
 #### Success criteria
 This command defines which characteristics will indicate that the credentials are correct. Each site has its own way of dealing with a successful login. You need to know what action your target takes when it logs in correctly. You can do this by analyzing the target's source code or by testing, or by getting information from the great internet.
 Here are the success parameters accepted by our tool:
