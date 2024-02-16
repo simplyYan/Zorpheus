@@ -5,60 +5,66 @@ import json
 class Zorpheus:
     def knock(self, args):
         url = args["URL"]
+        redirect_url = args.get("RedirectURL", None)  # Novo argumento para URL de redirecionamento
         username_field = args.get("Username", None)
         password_field = args.get("Password", None)
         wordlist_path = args["Wordlist"]
-        success_criteria = args.get("SuccessCriteria", {})
-
+        
         with open(wordlist_path, "r") as f:
             wordlist = json.load(f)
 
-        for password in wordlist["Passwords"]["words"]:
-            data = {}
-            if username_field:
-                data[username_field] = wordlist["Usernames"]["words"][0]  
-            if password_field:
-                data[password_field] = password
-
-            response = requests.post(url, data=data)
-
-            if self.check_success(response, success_criteria):
-                print("Credentials Found:")
+        for username in wordlist["Usernames"]["words"]:  # Corrigido para usar usernames do wordlist
+            for password in wordlist["Passwords"]["words"]:
+                data = {}
                 if username_field:
-                    print(f"Username: {wordlist['Usernames']['words'][0]}")  
+                    data[username_field] = username
                 if password_field:
-                    print(f"Password: {password}")
-                return
+                    data[password_field] = password
+
+                response = requests.post(url, data=data)
+
+                # Verificar os critérios de sucesso, incluindo redirecionamento para URL específica
+                if self.check_success(response, args.get("SuccessCriteria", {}), redirect_url):
+                    print("Credentials Found:")
+                    if username_field:
+                        print(f"Username: {username}")  # Corrigido para mostrar o username do wordlist
+                    if password_field:
+                        print(f"Password: {password}")
+                    return
 
         print("Credentials not found in the wordlist.")
 
-    def check_success(self, response, success_criteria):
-
+    def check_success(self, response, success_criteria, redirect_url):
         success_count = 0
-        for criterion, value in success_criteria.items():
-            if criterion == "StatusCode" and response.status_code == value:
-                    success_count += 1
-            elif criterion == "Keyword" and value in response.text:
-                    success_count += 1
-            elif criterion == "Header" and value in response.headers:
-                    success_count += 1
-            elif criterion == "Cookie" and value in response.cookies:
-                    success_count += 1
 
+        # Verificar critérios de sucesso existentes
+        if "StatusCode" in success_criteria and response.status_code == success_criteria["StatusCode"]:
+            success_count += 1
+        if "Keyword" in success_criteria and success_criteria["Keyword"] in response.text:
+            success_count += 1
+        if "Header" in success_criteria and success_criteria["Header"] in response.headers:
+            success_count += 1
+        if "Cookie" in success_criteria and success_criteria["Cookie"] in response.cookies:
+            success_count += 1
+
+        # Verificar o redirecionamento para a URL especificada
+        if redirect_url and response.status_code == 302 and redirect_url in response.headers['Location']:
+            success_count += 1
+
+        # Pelo menos 75% dos critérios devem ser atendidos para considerar como sucesso
         return success_count >= len(success_criteria) * 0.75  
 
     def wordlistgen(self, args):
-        output = {"Usernames": {"words": []}, "Passwords": {"words": []}}
+        output = {}
 
         for file_path in args:
             field_name = file_path.split('.')[0].capitalize() + "s"
+            words = []
 
             with open(file_path, 'r') as f:
                 words = [line.strip() for line in f.readlines()]
-                if "username" in file_path.lower():
-                    output["Usernames"]["words"].extend(words)
-                elif "password" in file_path.lower():
-                    output["Passwords"]["words"].extend(words)
+
+            output[field_name] = {"words": ", ".join(words)}
 
         return output
 
@@ -71,6 +77,8 @@ if __name__ == "__main__":
     zorpheus = Zorpheus()
     if args.command == "knock":
         arguments = json.loads(args.arguments[0])
+        if "RedirectURL" in arguments:
+            arguments["RedirectURL"] = args.arguments[1]
         zorpheus.knock(arguments)
     elif args.command == "wordlistgen":
         arguments = args.arguments
