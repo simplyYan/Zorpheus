@@ -43,7 +43,7 @@ python3 zorpheus.py knock '{"URL": "http://example.com/login", "Username": "user
 ```
 #### Example 2:
 ```
-python3 zorpheus.py knock '{"URL": "http://example.com/login", "Username": "username", "Password": "password", "Wordlist": "wordlist.json", "SuccessCriteria": {"StatusCode": 200, "Keyword": "Welcome"}, "RedirectURL": "http://example.com/dashboard"}'
+python3 zorpheus.py knock '{"URL": "http://testphp.vulnweb.com/login.php", "Username": "uname", "Password": "pass", "Wordlist": "wd_test.json", "SuccessCriteria": {"StatusCode": 200, "RedirectURL": "http://testphp.vulnweb.com/userinfo.php"}}'
 ```
 - _**In this example**_:
 - URL: The URL of the login page.
@@ -52,6 +52,11 @@ python3 zorpheus.py knock '{"URL": "http://example.com/login", "Username": "user
 - Wordlist: The path to the wordlist file.
 - SuccessCriteria: The default success criteria, including checking the status of code 200 and whether the word "Welcome" is present on the page.
 - RedirectURL: The URL to which we expect to be redirected after successful login.
+#### Example 3:
+```
+python3 zorpheus.py knock '{"URL": "http://testphp.vulnweb.com/login.php", "Username": "uname", "Password": "pass", "Wordlist": "wd_test.json", "SuccessCriteria": {"StatusCode": 200, "Keyword": "Welcome", "Header": "Content-Type: text/html", "Cookie": "session_id=12345"}}'
+
+```
 #### Success criteria
 This command defines which characteristics will indicate that the credentials are correct. Each site has its own way of dealing with a successful login. You need to know what action your target takes when it logs in correctly. You can do this by analyzing the target's source code or by testing, or by getting information from the great internet.
 Here are the success parameters accepted by our tool:
